@@ -54,7 +54,12 @@ impl Node {
     pub fn to_dot_string(&self) -> String {
         let colorstring: String;
 
-        let escaped: String = quote_string(self.label.clone());
+        let escaped_label = self.label.clone()
+                                        .replace("\n", "")
+                                        .replace(">", "\\>")
+                                        .replace("<", "\\<")
+                                        .replace("\"", "\\\"");
+        let escaped: String = quote_string(escaped_label);
         let shape: String;
 
         let mut text = vec!["\"", self.name.as_str(), "\""];
